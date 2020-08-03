@@ -6,7 +6,7 @@
         v-for="(v, i) in method.inputs"
         :key="i"
         v-model="inputs[v.name]"
-        :label="v.name"
+        :label="v.name || v.type"
         :placeholder="v.type"
       />
       <LabelButton
