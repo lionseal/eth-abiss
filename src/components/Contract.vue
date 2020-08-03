@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="title is-4">{{ name }}</h4>
+    <h4 class="title is-4">{{ name }} {{ contract.address }}</h4>
     <div class="tabs">
       <ul>
         <li
