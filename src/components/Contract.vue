@@ -39,8 +39,8 @@ export default {
       return this.contract
         ? this.contract.abi.filter(
             v =>
-              (this.tab === "read" && v.constant) ||
-              (this.tab === "write" && !v.constant) ||
+              (this.tab === "read" && v.type === "function" && v.constant) ||
+              (this.tab === "write" && v.type === "function" && !v.constant) ||
               (this.tab === "events" && v.type === "event")
           )
         : [];
