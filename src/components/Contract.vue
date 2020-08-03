@@ -36,12 +36,14 @@ export default {
       return this.tabs[this.activeTab];
     },
     methods() {
-      return this.contract.abi.filter(
-        v =>
-          (this.tab === "read" && v.constant) ||
-          (this.tab === "write" && !v.constant) ||
-          (this.tab === "events" && v.type === "event")
-      );
+      return this.contract
+        ? this.contract.abi.filter(
+            v =>
+              (this.tab === "read" && v.constant) ||
+              (this.tab === "write" && !v.constant) ||
+              (this.tab === "events" && v.type === "event")
+          )
+        : [];
     }
   }
 };
