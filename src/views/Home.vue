@@ -15,22 +15,28 @@
     <div class="container">
       <p>TODO: upload section</p>
       <br />
-      <Select
-        :value="chainId"
-        :values="chainIds"
-        @input="v => change('chainId', v)"
-      />
-      <Select
-        :value="networkName"
-        :values="networkNames"
-        @input="v => change('networkName', v)"
-      />
-      <Select
-        :value="contractName"
-        :values="contractNames"
-        class="mb-5"
-        @input="v => change('contractName', v)"
-      />
+      <div class="field is-grouped mb-5">
+        <Select
+          label="Chain Id"
+          :value="chainId"
+          :values="chainIds"
+          @input="v => change('chainId', v)"
+        />
+        <Select
+          class="ml-5"
+          label="Network Name"
+          :value="networkName"
+          :values="networkNames"
+          @input="v => change('networkName', v)"
+        />
+        <Select
+          class="ml-5"
+          label="Contract Name"
+          :value="contractName"
+          :values="contractNames"
+          @input="v => change('contractName', v)"
+        />
+      </div>
       <Contract :name="contractName" :contract="contract" />
     </div>
   </div>
@@ -87,10 +93,16 @@ export default {
   },
   watch: {
     chainId() {
-      this.$store.dispatch("setState", { prop: "networkName", value: null });
+      this.$store.dispatch("setState", {
+        prop: "networkName",
+        value: this.networkNames.length > 0 ? this.networkNames[0] : null
+      });
     },
     networkName() {
-      this.$store.dispatch("setState", { prop: "contractName", value: null });
+      this.$store.dispatch("setState", {
+        prop: "contractName",
+        value: this.contractNames.length > 0 ? this.contractNames[0] : null
+      });
     }
   },
   methods: {
