@@ -13,7 +13,12 @@
         </li>
       </ul>
     </div>
-    <Method class="mt-5" v-for="(v, i) in methods" :key="i" :method="v" />
+    <Method
+      class="mt-5"
+      v-for="(v, i) in methods"
+      :key="`${i}-${contract.address}-${v.name}`"
+      :method="v"
+    />
   </div>
 </template>
 

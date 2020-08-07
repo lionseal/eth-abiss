@@ -1,13 +1,19 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { Commiter, Getters, Mutations } from "./StoreHelper";
-import deployments from "../assets/example-deployments.json";
+import exampleDeployments from "../assets/example-deployments.json";
+
+const localDeployments = localStorage.getItem("deployments");
+const deployments = localDeployments ? JSON.parse(localDeployments) : null;
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    deployments: { data: deployments, status: "success" },
+    deployments: {
+      data: deployments || exampleDeployments,
+      status: "success"
+    },
     chainId: { data: "1", status: "success" },
     networkName: { data: "mainnet", status: "success" },
     contractName: { data: "Asset", status: "success" },
@@ -59,6 +65,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    updateDeployments({ dispatch }, data) {
+      localStorage.setItem("deployments", JSON.stringify(data));
+      return dispatch("setState", { prop: "deployments", value: data });
+    },
     setState({ commit }, { prop, value }) {
       Commiter(commit, prop).success(value);
     },

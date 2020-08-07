@@ -7,13 +7,13 @@
             Welcome to ETH ABIss
           </h1>
           <h2 class="subtitle">
-            Upload your deployments and interact with your contracts
+            Drag and drop your deployments and interact with your contracts
           </h2>
         </div>
       </div>
     </section>
     <div class="container">
-      <p>TODO: upload section</p>
+      <Upload />
       <br />
       <div class="field is-grouped mb-5">
         <Select
@@ -45,10 +45,12 @@
 <script>
 import Contract from "../components/Contract";
 import Select from "../components/Select";
+import Upload from "../components/Upload";
 export default {
   components: {
     Contract,
-    Select
+    Select,
+    Upload
   },
   computed: {
     deployments() {
