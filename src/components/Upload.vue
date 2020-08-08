@@ -1,7 +1,6 @@
 <template>
   <div
     @drop.prevent="addFile"
-    @dragover.prevent
     @dragleave="hideDropZone"
     @dragenter.prevent="showEffect"
     @dragover.prevent="showEffect"
