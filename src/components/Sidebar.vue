@@ -5,13 +5,20 @@
   >
     <p class="menu-label">Select contract</p>
     <SidebarList is-menu-list v-for="(x, i) in chainIds" :key="`${x}-${i}`">
-      <SidebarListItem :item="x" @click="change('chainId', x)">
+      <SidebarListItem
+        :item="x"
+        @click="change('chainId', x)"
+        has-chevron
+        :is-open="x === chainId"
+      >
         <template v-if="x === chainId">
           <SidebarList>
             <SidebarListItem
               v-for="(y, j) in networkNames"
               :key="`${y}-${j}`"
               :item="y"
+              has-chevron
+              :is-open="y === networkName"
               @click="change('networkName', y)"
             >
               <template v-if="y === networkName">

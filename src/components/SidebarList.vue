@@ -15,6 +15,7 @@ export default {
 <style scoped>
 .sidebar-list {
   margin: 0.25rem;
+  margin-right: 0;
 }
 .sidebar-list:not(.menu-list) {
   padding-left: 0.5rem;
