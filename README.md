@@ -1,2 +1,2 @@
 # eth-abiss
-Upload smart contracts ABIs and interact with them
+Tool to interact with smart contracts using the contract address and ABI

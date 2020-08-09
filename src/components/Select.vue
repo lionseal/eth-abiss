@@ -23,4 +23,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+@media (prefers-color-scheme: dark) {
+  .select select {
+    background-color: #0a0a0a;
+    border-color: #363636;
+    color: #dbdbdb;
+  }
+}
+</style>

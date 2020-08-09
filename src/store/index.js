@@ -51,7 +51,8 @@ export default new Vuex.Store({
     chainId: { data: "1", status: "success" },
     networkName: { data: "mainnet", status: "success" },
     contractName: { data: "Asset", status: "success" },
-    calls: {}
+    calls: {},
+    sidebar: { data: false, status: "success" }
   },
   getters: {
     ...Getters,
