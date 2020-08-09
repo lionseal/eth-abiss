@@ -76,10 +76,12 @@ export default {
 <style scoped>
 .sidebar {
   z-index: 1;
-  background-color: white;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0 0 1px rgba(10, 10, 10, 0.02);
 }
 @media (prefers-color-scheme: dark) {
   .sidebar {
+    box-shadow: none;
     background-color: #0a0a0a;
   }
 }
