@@ -8,6 +8,40 @@ const deployments = localDeployments ? JSON.parse(localDeployments) : null;
 
 Vue.use(Vuex);
 
+async function executeMethod({ commit, getters }, { method, inputs }, call) {
+  const chainId = getters.get("chainId");
+  const networkName = getters.get("networkName");
+  const contractName = getters.get("contractName");
+  const index = getters.getResults(method.name).length;
+  commit("addCallResult", {
+    chainId,
+    networkName,
+    contractName,
+    methodName: method.name,
+    inputs,
+    index
+  });
+  const result = await Vue.prototype[call](
+    getters.get("deployments"),
+    chainId,
+    networkName,
+    contractName,
+    method,
+    inputs,
+    undefined,
+    index
+  );
+  commit("addCallResult", {
+    chainId,
+    networkName,
+    contractName,
+    methodName: method.name,
+    inputs,
+    result,
+    index
+  });
+}
+
 export default new Vuex.Store({
   state: {
     deployments: {
@@ -72,39 +106,11 @@ export default new Vuex.Store({
     setState({ commit }, { prop, value }) {
       Commiter(commit, prop).success(value);
     },
-    async call({ commit, getters }, { method, inputs }) {
-      const chainId = getters.get("chainId");
-      const networkName = getters.get("networkName");
-      const contractName = getters.get("contractName");
-      const index = getters.getResults(method.name).length;
-      commit("addCallResult", {
-        chainId,
-        networkName,
-        contractName,
-        methodName: method.name,
-        inputs,
-        result,
-        index
-      });
-      const result = await Vue.prototype.$methodCall(
-        getters.get("deployments"),
-        chainId,
-        networkName,
-        contractName,
-        method,
-        inputs,
-        undefined,
-        index
-      );
-      commit("addCallResult", {
-        chainId,
-        networkName,
-        contractName,
-        methodName: method.name,
-        inputs,
-        result,
-        index
-      });
+    async readCall(context, params) {
+      await executeMethod(context, params, "$methodCall");
+    },
+    async writeCall(context, params) {
+      await executeMethod(context, params, "$methodSend");
     }
   },
   modules: {}

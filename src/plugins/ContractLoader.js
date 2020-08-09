@@ -13,7 +13,8 @@ function getWeb3() {
 }
 
 async function unlockBuiltIn() {
-  let accounts = await window.web3.eth.getAccounts().catch(() => []);
+  const web3 = getWeb3();
+  let accounts = await web3.eth.getAccounts().catch(() => []);
   if (accounts.length === 0) {
     if (window.ethereum) {
       accounts = await window.ethereum.enable();
@@ -21,6 +22,18 @@ async function unlockBuiltIn() {
     }
   }
   return accounts[0];
+}
+
+function getEstimate(method, from) {
+  const web3 = getWeb3();
+  return web3.eth
+    .estimateGas({
+      data: method.encodeABI(),
+      from,
+      gasLimit: 9000000
+    })
+    .then(res => res * 1.5)
+    .catch(() => undefined);
 }
 
 let web3;
@@ -84,10 +97,12 @@ async function methodSend(
     contractName
   );
   const from = await unlockBuiltIn();
+  const execute = contract.methods[method.name](...inputs);
+  const gasLimit = await getEstimate(execute, from);
   return new Promise((resolve, reject) => {
     try {
-      contract.methods[method.name](...inputs)
-        .send({ from })
+      execute
+        .send({ from, gasLimit })
         .on("transactionHash", resolve)
         .on("confirmation", (confirmationNumber, receipt) => {
           if (confirmationNumber === 0) {

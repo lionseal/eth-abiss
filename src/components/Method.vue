@@ -76,7 +76,7 @@ export default {
   methods: {
     execute() {
       if (this.isConstant && this.results.length > 0) return;
-      this.$store.dispatch("call", {
+      this.$store.dispatch(this.operationType + "Call", {
         method: this.method,
         inputs: this.methodInputs
       });
