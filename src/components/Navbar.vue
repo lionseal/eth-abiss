@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar is-black">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">
+      <a class="navbar-item" :href="url">
         ETH ABIss
       </a>
       <a
@@ -27,6 +27,9 @@ export default {
   computed: {
     sidebar() {
       return this.$store.getters["get"]("sidebar");
+    },
+    url() {
+      return process.env.BASE_URL;
     }
   }
 };
