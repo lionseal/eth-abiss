@@ -67,11 +67,11 @@ export default {
   },
   watch: {
     isConstant() {
-      if (this.isConstant) this.execute();
+      if (this.isConstant && this.operationType === "read") this.execute();
     }
   },
   mounted() {
-    if (this.isConstant) this.execute();
+    if (this.isConstant && this.operationType === "read") this.execute();
   },
   methods: {
     execute() {
