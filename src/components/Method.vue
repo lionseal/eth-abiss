@@ -87,6 +87,11 @@ export default {
 
 <style scoped>
 .method {
-  border-radius: 4px;
+  border-radius: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  .method {
+    box-shadow: none;
+  }
 }
 </style>
