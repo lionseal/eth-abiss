@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { Commiter, Getters, Mutations } from "./StoreHelper";
+import { Getters, Mutations, Actions } from "./StoreHelper";
 import exampleDeployments from "../assets/example-deployments.json";
 
 const localDeployments = localStorage.getItem("deployments");
@@ -52,7 +52,8 @@ export default new Vuex.Store({
     networkName: { data: "mainnet", status: "success" },
     contractName: { data: "Asset", status: "success" },
     calls: {},
-    sidebar: { data: false, status: "success" }
+    sidebar: { data: false, status: "success" },
+    web3ChainId: { data: null, status: "success" }
   },
   getters: {
     ...Getters,
@@ -66,6 +67,12 @@ export default new Vuex.Store({
       if (!data[chainId][networkName][contractName]) return [];
       if (!data[chainId][networkName][contractName][methodName]) return [];
       return data[chainId][networkName][contractName][methodName];
+    },
+    web3Detected: (state, getters) => {
+      return getters.get("web3ChainId", null) !== null;
+    },
+    isValidChainId: (state, getters) => {
+      return getters.get("chainId") == getters.get("web3ChainId");
     }
   },
   mutations: {
@@ -100,12 +107,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    ...Actions,
     updateDeployments({ dispatch }, data) {
       localStorage.setItem("deployments", JSON.stringify(data));
-      return dispatch("setState", { prop: "deployments", value: data });
-    },
-    setState({ commit }, { prop, value }) {
-      Commiter(commit, prop).success(value);
+      return dispatch("set", { prop: "deployments", value: data });
     },
     async readCall(context, params) {
       await executeMethod(context, params, "$methodCall");

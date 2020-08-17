@@ -1,3 +1,4 @@
+import Vue from "vue";
 export function Commiter(commit, state) {
   return {
     loading: progress => {
@@ -17,10 +18,10 @@ export function Commiter(commit, state) {
 
 export const Mutations = {
   registerState(state, payload) {
-    state[payload.state] = {
+    Vue.set(state, payload.state, {
       status: payload.status,
       data: payload.data
-    };
+    });
   }
 };
 
@@ -28,5 +29,11 @@ export const Getters = {
   get: state => (name, defaultValue = null) => {
     const value = state[name];
     return value && value.status === "success" ? value.data : defaultValue;
+  }
+};
+
+export const Actions = {
+  set({ commit }, { prop, value }) {
+    Commiter(commit, prop).success(value);
   }
 };

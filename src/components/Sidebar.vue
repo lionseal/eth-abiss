@@ -58,13 +58,13 @@ export default {
   },
   watch: {
     chainId() {
-      this.$store.dispatch("setState", {
+      this.$store.dispatch("set", {
         prop: "networkName",
         value: this.networkNames.length > 0 ? this.networkNames[0] : null
       });
     },
     networkName() {
-      this.$store.dispatch("setState", {
+      this.$store.dispatch("set", {
         prop: "contractName",
         value: this.contractNames.length > 0 ? this.contractNames[0] : null
       });

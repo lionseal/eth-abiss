@@ -5,6 +5,7 @@
     <div class="main-content">
       <router-view class="container" />
     </div>
+    <NotificationManager />
     <Footer v-if="false" />
   </div>
 </template>
@@ -13,11 +14,13 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+import NotificationManager from "./components/NotificationManager";
 export default {
   components: {
     Navbar,
     Footer,
-    Sidebar
+    Sidebar,
+    NotificationManager
   }
 };
 </script>
@@ -58,6 +61,20 @@ export default {
   margin-bottom: 1.5rem;
   padding: 1.5rem;
 }
+.notifications-container {
+  position: fixed;
+  bottom: 1.5rem;
+  left: calc(300px + 1.5rem);
+  right: 1.5rem;
+  z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .notifications-container {
+    left: 1.5rem;
+  }
+}
+
 .footer {
   margin-left: 300px;
 }

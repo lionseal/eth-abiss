@@ -1,5 +1,26 @@
 import Vue from "vue";
 import Web3 from "web3";
+import store from "../store";
+
+async function watchChainId() {
+  const updateChainId = chainId => {
+    store.dispatch("set", {
+      prop: "web3ChainId",
+      value: Web3.utils.toBN(chainId).toNumber()
+    });
+  };
+  if (window.ethereum) {
+    window.ethereum.on("chainChanged", updateChainId);
+    updateChainId(window.ethereum.chainId);
+  } else {
+    // legacy web3 reloads the page on chain change
+    const web3 = getWeb3();
+    if (web3) {
+      const chainId = await web3.eth.getChainId();
+      updateChainId(chainId);
+    }
+  }
+}
 
 function getWeb3() {
   if (window.ethereum) {
@@ -123,3 +144,4 @@ async function methodSend(
 Vue.prototype.$loadContract = loadContract;
 Vue.prototype.$methodCall = methodCall;
 Vue.prototype.$methodSend = methodSend;
+watchChainId();
