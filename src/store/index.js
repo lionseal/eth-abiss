@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { Getters, Mutations, Actions } from "./StoreHelper";
+import { Getters, Mutations, Actions, Init } from "./StoreHelper";
+import modules from "./modules";
 import exampleDeployments from "../assets/example-deployments.json";
 
 const localDeployments = localStorage.getItem("deployments");
@@ -42,18 +43,14 @@ async function executeMethod({ commit, getters }, { method, inputs }, call) {
   });
 }
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
-    deployments: {
-      data: deployments || exampleDeployments,
-      status: "success"
-    },
-    chainId: { data: "1", status: "success" },
-    networkName: { data: "mainnet", status: "success" },
-    contractName: { data: "Asset", status: "success" },
+    deployments: Init(deployments || exampleDeployments, "success"),
+    chainId: Init("1", "success"),
+    networkName: Init("mainnet", "success"),
+    contractName: Init("Asset", "success"),
     calls: {},
-    sidebar: { data: false, status: "success" },
-    web3ChainId: { data: null, status: "success" }
+    web3ChainId: Init(null, "success")
   },
   getters: {
     ...Getters,
@@ -119,5 +116,7 @@ export default new Vuex.Store({
       await executeMethod(context, params, "$methodSend");
     }
   },
-  modules: {}
+  modules
 });
+
+export default store;

@@ -1,34 +1,39 @@
 import Vue from "vue";
-export function Commiter(commit, state) {
+
+export const SUCCESS = "success";
+export const LOADING = "loading";
+export const ERROR = "error";
+
+export function Init(data, status) {
+  if (![SUCCESS, LOADING, ERROR].includes(status)) {
+    throw new Error("Invalid status");
+  }
+  return { data, status };
+}
+
+export function Commiter(commit, prop) {
+  const onCommit = (data, status) => commit("SET", { prop, status, data });
   return {
-    loading: progress => {
-      commit("registerState", { state, status: "loading", data: progress });
-      return true;
-    },
-    success: data => {
-      commit("registerState", { state, status: "success", data });
-      return true;
-    },
-    error: err => {
-      commit("registerState", { state, status: "error", data: err });
-      return false;
-    }
+    loading: progress => onCommit(progress, LOADING),
+    success: data => onCommit(data, SUCCESS),
+    error: err => onCommit(err, ERROR)
   };
 }
 
 export const Mutations = {
-  registerState(state, payload) {
-    Vue.set(state, payload.state, {
-      status: payload.status,
-      data: payload.data
-    });
+  SET(state, { prop, status, data }) {
+    Vue.set(state, prop, { status, data });
   }
 };
 
 export const Getters = {
-  get: state => (name, defaultValue = null) => {
-    const value = state[name];
-    return value && value.status === "success" ? value.data : defaultValue;
+  get: state => (prop, defaultValue = null) => {
+    const value = state[prop];
+    return value && value.status === SUCCESS ? value.data : defaultValue;
+  },
+  isLoading: state => props => {
+    if (Array.isArray(props)) props = [props];
+    return props.some(prop => state[prop] && state[prop].status === LOADING);
   }
 };
 
