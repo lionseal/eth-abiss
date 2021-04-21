@@ -1,7 +1,7 @@
 <template>
   <aside
     class="sidebar column is-2 is-fullheight section py-5"
-    :class="{ 'is-hidden-mobile': !sidebar }"
+    :class="{ 'is-hidden-touch': !sidebar }"
   >
     <p class="menu-label">Select contract</p>
     <SidebarList is-menu-list v-for="(x, i) in chainIds" :key="`${x}-${i}`">
@@ -76,14 +76,8 @@ export default {
 <style scoped>
 .sidebar {
   z-index: 1;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
-    0 0 0 1px rgba(10, 10, 10, 0.02);
-}
-@media (prefers-color-scheme: dark) {
-  .sidebar {
-    box-shadow: none;
-    background-color: #0a0a0a;
-  }
+  background-color: white;
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 .contract-text {
   overflow: hidden;
@@ -102,7 +96,7 @@ export default {
 .contract {
   margin: 0.25rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1023px) {
   .sidebar {
     width: 100% !important;
   }

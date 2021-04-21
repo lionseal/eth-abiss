@@ -1,5 +1,5 @@
 <template>
-  <ul class="sidebar-list" :class="{ 'menu-list': isMenuList }">
+  <ul class="sidebar-list m-1 mr-0" :class="{ 'menu-list': isMenuList }">
     <slot></slot>
   </ul>
 </template>
@@ -13,11 +13,8 @@ export default {
 </script>
 
 <style scoped>
-.sidebar-list {
-  margin: 0.25rem;
-  margin-right: 0;
-}
-.sidebar-list:not(.menu-list) {
+.sidebar-list .sidebar-list {
+  margin-right: 0 !important;
   padding-left: 0.5rem;
 }
 </style>

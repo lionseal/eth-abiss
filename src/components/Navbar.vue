@@ -1,12 +1,13 @@
 <template>
-  <nav class="navbar is-black">
+  <nav class="navbar is-dark">
     <div class="navbar-brand">
       <a class="navbar-item" :href="url">
-        ETH ABIss
+        <img class="mr-3" src="/ethereum-eth-logo.svg" width="18" height="28" />
+        <span>ETH ABIss</span>
       </a>
       <a
         role="button"
-        class="navbar-burger is-hidden-tablet"
+        class="navbar-burger"
         aria-label="menu"
         aria-expanded="false"
         @click="change('sidebar', !sidebar)"
@@ -21,9 +22,10 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <a
-            class="button is-primary"
+            class="button is-primary is-small"
             href="https://github.com/lionseal/eth-abiss"
             target="_blank"
+            rel="noopener"
           >
             <span class="icon"><img src="../assets/github.png"/></span>
             <span>Source</span>
@@ -49,4 +51,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.navbar {
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+</style>

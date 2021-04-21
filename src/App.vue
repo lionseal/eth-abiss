@@ -6,7 +6,7 @@
       <router-view class="container" />
     </div>
     <NotificationManager />
-    <Footer v-if="false" />
+    <Footer />
   </div>
 </template>
 
@@ -37,6 +37,9 @@ export default {
 *::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
+}
+.is-pointer {
+  cursor: pointer;
 }
 </style>
 
@@ -69,7 +72,7 @@ export default {
   z-index: 1;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1023px) {
   .notifications-container {
     left: 1.5rem;
   }
@@ -78,7 +81,7 @@ export default {
 .footer {
   margin-left: 300px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1023px) {
   .main-content {
     margin-left: 0;
   }

@@ -50,7 +50,8 @@ const store = new Vuex.Store({
     networkName: Init("mainnet", "success"),
     contractName: Init("Asset", "success"),
     calls: {},
-    web3ChainId: Init(null, "success")
+    web3ChainId: Init(null, "success"),
+    sidebar: Init(false, "success")
   },
   getters: {
     ...Getters,

@@ -2,7 +2,7 @@
   <li>
     <a
       @click="$emit('click', item)"
-      class="sidebar-list-item"
+      class="sidebar-list-item p-1"
       :class="{
         'is-active': isActive,
         'has-chevron': hasChevron,
@@ -32,7 +32,7 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  padding: 0.25rem;
+  position: relative;
 }
 
 .sidebar-list-item.is-active {
@@ -43,7 +43,7 @@ export default {
   position: absolute;
   content: "˄";
   margin-left: auto;
-  right: 1.75rem;
+  right: 0;
 }
 
 .sidebar-list-item.has-chevron.is-open:hover::after {
@@ -54,7 +54,7 @@ export default {
   position: absolute;
   content: "˅";
   margin-left: auto;
-  right: 1.75rem;
+  right: 0;
 }
 
 .sidebar-list-item.has-chevron:not(.is-open):hover::after {

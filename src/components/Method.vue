@@ -1,7 +1,13 @@
 <template>
-  <div class="method card">
-    <div class="card-content">
-      <h5 class="title is-5">{{ method.name }}</h5>
+  <div class="method box">
+    <h5
+      class="title is-5 is-pointer"
+      :class="{ 'is-open': showDetails }"
+      @click="() => (showDetails = !showDetails)"
+    >
+      {{ method.name }}
+    </h5>
+    <template v-if="showDetails">
       <Input
         v-for="(v, i) in method.inputs"
         :key="i"
@@ -21,7 +27,7 @@
           <strong>Call {{ i + 1 }}: </strong><span>{{ v }}</span>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -34,6 +40,7 @@ export default {
     LabelButton
   },
   data: () => ({
+    showDetails: false,
     inputs: {}
   }),
   props: {
@@ -86,12 +93,29 @@ export default {
 </script>
 
 <style scoped>
-.method {
-  border-radius: 8px;
+.title {
+  position: relative;
 }
-@media (prefers-color-scheme: dark) {
-  .method {
-    box-shadow: none;
-  }
+
+.title.is-open::after {
+  position: absolute;
+  content: "˄";
+  margin-left: auto;
+  right: 0;
+}
+
+.title.is-open:hover::after {
+  color: #009e86;
+}
+
+.title:not(.is-open)::after {
+  position: absolute;
+  content: "˅";
+  margin-left: auto;
+  right: 0;
+}
+
+.title:not(.is-open):hover::after {
+  color: #009e86;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="contract box">
     <h4 class="title is-4">{{ name }} {{ contract.address }}</h4>
     <div class="tabs">
       <ul>
@@ -41,7 +41,7 @@ export default {
       return this.tabs[this.activeTab];
     },
     methods() {
-      return this.contract
+      const methods = this.contract
         ? this.contract.abi.filter(
             v =>
               (this.tab === "read" && v.type === "function" && v.constant) ||
@@ -49,6 +49,13 @@ export default {
               (this.tab === "events" && v.type === "event")
           )
         : [];
+      return methods.sort((a, b) => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        if (a.inputs.length > b.inputs.length) return 1;
+        if (a.inputs.length < b.inputs.length) return -1;
+        return 0;
+      });
     }
   }
 };
@@ -57,5 +64,8 @@ export default {
 <style scoped>
 .tabs {
   text-transform: capitalize;
+}
+.contract.box {
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 </style>
