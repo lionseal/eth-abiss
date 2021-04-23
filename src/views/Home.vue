@@ -14,7 +14,7 @@
     </section>
     <div class="container">
       <Upload />
-      <Contract :name="contractName" :contract="contract" />
+      <Contract v-if="contract" :name="contractName" :contract="contract" />
     </div>
   </div>
 </template>
